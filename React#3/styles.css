@@ -1,0 +1,10 @@
+span {
+  display: block;
+  margin-top: 20px; 
+  margin-left: 255px;
+}
+
+span:hover {
+  color: #777;
+  cursor: pointer;
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>React.js lessons</title>
+
+  <script src="https://npmcdn.com/react@15.3.2/dist/react.js"></script>
+  <script src="https://npmcdn.com/react-dom@15.3.2/dist/react-dom.js"></script>
+  <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <div id="calc"></div>
+    
+    <script type="text/babel">
+
+        
+    
+
+        var InputField = React.createClass({
+
+        getInitialState: function(){
+            return { 
+               value1: 0,
+               value1: 0,
+               symbol: '',
+               equal: 0
+            };
+        },
+
+        handleOne: function(e){
+            this.setState({
+                value1: Number(e.target.value)
+            })
+        },
+            
+        handleTwo: function(e){
+            this.setState({
+                value2: Number(e.target.value)
+            })
+        }, 
+
+        handleSymbol: function(e){
+            this.setState({
+                symbol: e.target.value
+            })
+        },   
+        
+        handleEqual: function(){
+            
+                if(this.state.symbol == '+') {
+                    this.setState({
+                        equal: (this.state.value1 + this.state.value2)
+                    })
+                } else if (this.state.symbol == '-') {
+                    this.setState({
+                        equal: (this.state.value1 - this.state.value2)
+                    })
+                } else if (this.state.symbol == '*') {
+                     this.setState({
+                        equal: (this.state.value1 * this.state.value2)
+                    })
+                } else if (this.state.symbol == '/') {
+                        this.setState({
+                        equal: (this.state.value1 / this.state.value2)
+                    })
+
+                } else { 
+                    this.setState({
+                        equal: 0
+                    })
+                }
+            
+        },  
+       
+        render: function() {
+            return (
+                  <div>
+                    <input type="text" onChange={this.handleOne} />
+                    <input type="text" onChange={this.handleSymbol} />
+                    <input type="text" onChange={this.handleTwo} />
+
+                    <span>{this.state.equal}</span>
+
+                    <span onClick={this.handleEqual}>=</span>
+                  </div>  
+                )
+            }
+        });
+
+      
+    
+        ReactDOM.render(
+            <InputField />,
+            document.getElementById("calc")
+        );
+
+    </script>
+
+</body>
+</html>
