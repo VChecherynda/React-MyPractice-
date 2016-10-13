@@ -1,16 +1,28 @@
 var Search = React.createClass({
+
+  getInitialState: function(){
+    return {
+      searchValue: ''
+    };
+  },
+
+ 
+  handleSearch: function(event) {
+      var searchQuery = event.target.value.toLowerCase();
+      var searchNotes = this.props.notes.filter(function(el) {
+          var searchValue = el.text.toLowerCase();
+          return searchValue.indexOf(searchQuery) !== -1;
+      });
+
+      this.setState({
+          searchValue: searchNotes
+      });
+  },
+
   render: function() {
-
-    handleSearch: function(event) {
-        var searchQuery = event.target.value.toLowerCase();
-        var displayedContacts = notes.filter(function(el) {
-            var searchValue = el.name.toLowerCase();
-            return searchValue.indexOf(searchQuery) !== -1;
-        });
-    },
-
-    return (
-        <input type="text" className="search" onChange={this.handleSearch}/>
+ 
+     return (
+        <input type="text" className="search" onChange={this.handleSearch} transfer={this.state.searchValue}/>
     );
 
   }
@@ -134,6 +146,7 @@ var NotesApp = React.createClass({
 
   componentDidUpdate: function(){
       this._updateLocalStorage();
+
   },
 
   handleNodeDelete: function(note){
@@ -160,7 +173,7 @@ var NotesApp = React.createClass({
         <div className="notes-app">
           <h2 className="app-header">NotesApp</h2>
           <Search notes={this.state.notes} />
-          <NoteEditor onNoteAdd={this.handleNodeAdd} />
+          <NoteEditor onNoteAdd={this.handleNodeAdd}  />
           <NotesGrid notes={this.state.notes} onNoteDelete={this.handleNodeDelete}/>
         </div>  
       );
